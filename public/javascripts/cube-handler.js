@@ -51,30 +51,30 @@ function update() {
     var movedDatas  = inputUpdates();
     renderer.render( scene, camera );
 
-    if(movedDatas != undefined){
+    if(movedDatas.length > 0){
         socket.emit('cubeMoved', movedDatas);
     }
 }
 
 function inputUpdates(){
     var doRotate    = keyboard.pressed("ctrl");
-    var movedDatas  = undefined;
+    var movedDatas  = [];
 
     if( keyboard.pressed("left") || keyboard.pressed("q") ){
         (doRotate ? mesh.rotateY(-ROTATE_PACE) : mesh.translateX(-MOVE_PACE));
-        movedDatas = (doRotate ? { 'mesh.rotateY' : ROTATE_PACE } : { 'mesh.translateX' : -MOVE_PACE });
+        movedDatas.push(doRotate ? { 'mesh.rotateY' : -ROTATE_PACE } : { 'mesh.translateX' : -MOVE_PACE });
     }
     else if( keyboard.pressed("right") || keyboard.pressed("d") ){
         (doRotate ? mesh.rotateY(ROTATE_PACE) : mesh.translateX(MOVE_PACE));
-        movedDatas = (doRotate ? { 'mesh.rotateY' : -ROTATE_PACE } : { 'mesh.translateX' : MOVE_PACE });
+        movedDatas.push(doRotate ? { 'mesh.rotateY' : ROTATE_PACE } : { 'mesh.translateX' : MOVE_PACE });
     }
     if( keyboard.pressed("up") || keyboard.pressed("z") ){
         (doRotate ? mesh.rotateX(-ROTATE_PACE) : mesh.translateY(MOVE_PACE));
-        movedDatas = (doRotate ? { 'mesh.rotateX' : ROTATE_PACE } : { 'mesh.translateY' : MOVE_PACE });
+        movedDatas.push(doRotate ? { 'mesh.rotateX' : -ROTATE_PACE } : { 'mesh.translateY' : MOVE_PACE });
     }
     else if( keyboard.pressed("down") || keyboard.pressed("s") ){
         (doRotate ? mesh.rotateX(ROTATE_PACE) : mesh.translateY(-MOVE_PACE));
-        movedDatas = (doRotate ? { 'mesh.rotateX' : -ROTATE_PACE } : { 'mesh.translateY' : -MOVE_PACE });
+        movedDatas.push(doRotate ? { 'mesh.rotateX' : ROTATE_PACE } : { 'mesh.translateY' : -MOVE_PACE });
     }
     return movedDatas;
 }
@@ -83,7 +83,9 @@ function inputUpdates(){
 Socket.io emitted function
  */
 function socketMoveCube(datas){
-    for(var key in datas){
-        eval(key + "(" + datas[key] + ")");
+    for(var i=0; i < datas.length; ++i){
+        for(var key in datas[i]){
+            eval(key + "(" + datas[i][key] + ")");
+        }
     }
 }
