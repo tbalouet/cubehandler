@@ -1,0 +1,11 @@
+extends layout
+
+block pageContent
+    h1 #{title}
+    p(id='topText') Welcome to #{title}
+
+block javascriptContent
+    script(type='text/javascript',src='/socket.io/socket.io.js')
+    script(type='text/javascript',src='/javascripts/three.min.js')
+    script(type='text/javascript',src='/javascripts/THREEx.KeyboardState.js')
+    script(type='text/javascript',src='/javascripts/cube-handler.js')
