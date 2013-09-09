@@ -9,12 +9,11 @@ var keyboard;
 
 window.onload = function(){
     if( init() ){
-        update();
-
         socket  = io.connect();
         socket.on('socketMoveCube', function (datas) {
             socketMoveCube(datas);
         });
+        update();
     }
     else{
         console.log("Initialization error");
