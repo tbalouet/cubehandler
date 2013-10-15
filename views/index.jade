@@ -3,9 +3,19 @@ extends layout
 block pageContent
     h1 #{title}
     p(id='topText') Welcome to #{title}
+    div(id="info")
+        div(class="bottom",id="inlineDoc")
 
 block javascriptContent
-    script(type='text/javascript',src='/socket.io/socket.io.js')
-    script(type='text/javascript',src='/javascripts/three.min.js')
-    script(type='text/javascript',src='/javascripts/THREEx.KeyboardState.js')
-    script(type='text/javascript',src='/javascripts/cube-handler.js')
+    script(type='text/javascript',src='/javascripts/vendor/three.js/Three.js')
+    script(type='text/javascript',src='/javascripts/vendor/three.js/Detector.js')
+    script(type='text/javascript',src='/javascripts/vendor/three.js/Stats.js')
+
+    script(type='text/javascript',src='/javascripts/vendor/threex/THREEx.screenshot.js')
+    script(type='text/javascript',src='/javascripts/vendor/threex/THREEx.FullScreen.js')
+    script(type='text/javascript',src='/javascripts/vendor/threex/THREEx.WindowResize.js')
+    script(type='text/javascript',src='/javascripts/vendor/threex/THREEx.KeyboardState.js')
+    script(type='text/javascript',src='/javascripts/vendor/threex.dragpancontrols.js')
+
+
+    script(type='text/javascript',src='/javascripts/script.js')

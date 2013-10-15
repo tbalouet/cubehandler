@@ -5,15 +5,11 @@
 var express     = require('express'),
     routes      = require('./routes'),
     http        = require('http'),
-    path        = require('path'),
-    sockHandler = require('socket-handler.js');
+    path        = require('path');
 
 
 var app     = express();
 var server  = http.createServer(app);
-
-sockHandler.init(server);
-
 
 // setup NodeJS environment
 app.set('views', __dirname + '/views');
